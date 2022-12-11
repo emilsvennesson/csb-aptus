@@ -20,13 +20,10 @@ export class CsbAptus {
 
   async login(username: string, password: string): Promise<boolean> {
     const url = 'https://www.chalmersstudentbostader.se/wp-login.php';
-    const params = new URLSearchParams({
-      log: username,
-      pwd: password,
-      redirect_to: '',
-    });
-
-    const response = await client.post(url, params);
+    const response = await axios.post(
+      url,
+      `log=${username}&pwd=${password}&redirect_to=`, // URLSearchParams doesn't work here in RN for whatever reason
+    );
     const cookies = response.headers['set-cookie'];
     if (!cookies) throw new Error('No cookies');
     let success = false;
