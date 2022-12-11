@@ -43,7 +43,6 @@
     "axios": "^1.2.1",
     "axios-cookiejar-support": "^4.0.3",
     "node-html-parser": "^6.1.4",
-    "tough-cookie": "^4.1.2",
-    "uuid": "^9.0.0"
+    "tough-cookie": "^4.1.2"
   }
 }

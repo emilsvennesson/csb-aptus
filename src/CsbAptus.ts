@@ -12,6 +12,12 @@ export interface Door {
   id: string;
 }
 
+const generateRandomNumberString = (length: number): string =>
+  new Array(length)
+    .join()
+    // eslint-disable-next-line no-bitwise
+    .replace(/(.|$)/g, () => ((Math.random() * 36) | 0).toString(36));
+
 export class CsbAptus {
   private isLoggedIn: boolean;
 
@@ -21,7 +27,7 @@ export class CsbAptus {
 
   async login(username: string, password: string): Promise<boolean> {
     const url = 'https://www.chalmersstudentbostader.se/wp-login.php';
-    const response = await axios.post(
+    const response = await client.post(
       url,
       `log=${username}&pwd=${password}&redirect_to=`, // URLSearchParams doesn't work here in RN for whatever reason
     );
@@ -41,7 +47,7 @@ export class CsbAptus {
     const url = 'https://www.chalmersstudentbostader.se/widgets/';
     const widget = 'aptuslogin@APTUSPORT';
     const params = new URLSearchParams({
-      callback: uuidv4(),
+      callback: generateRandomNumberString(40), // generate random string to get new token
       'widgets[]': widget,
     });
     const response = await client(`${url}?${params}`);
