@@ -2,6 +2,7 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
+import { v4 as uuidv4 } from 'uuid';
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
@@ -40,7 +41,7 @@ export class CsbAptus {
     const url = 'https://www.chalmersstudentbostader.se/widgets/';
     const widget = 'aptuslogin@APTUSPORT';
     const params = new URLSearchParams({
-      callback: '',
+      callback: uuidv4(),
       'widgets[]': widget,
     });
     const response = await client(`${url}?${params}`);
