@@ -1,6 +1,6 @@
 {
   "name": "csb-aptus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "repository": "https://github.com/emilsvennesson/csb-aptus",
   "main": "dist/index.js",
