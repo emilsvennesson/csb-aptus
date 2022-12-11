@@ -2,21 +2,19 @@ import { parse } from 'node-html-parser';
 import axios from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
-import { v4 as uuidv4 } from 'uuid';
 
 const jar = new CookieJar();
 const client = wrapper(axios.create({ jar }));
-
-export interface Door {
-  name: string;
-  id: string;
-}
-
 const generateRandomNumberString = (length: number): string =>
   new Array(length)
     .join()
     // eslint-disable-next-line no-bitwise
     .replace(/(.|$)/g, () => ((Math.random() * 36) | 0).toString(36));
+
+export interface Door {
+  name: string;
+  id: string;
+}
 
 export class CsbAptus {
   private isLoggedIn: boolean;
