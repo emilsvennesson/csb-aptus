@@ -21,15 +21,19 @@ export class CsbAptus {
 
   async login(username: string, password: string): Promise<boolean> {
     const url = 'https://www.chalmersstudentbostader.se/wp-login.php';
-    const params = new URLSearchParams({ log: username, pwd: password });
+    const params = new URLSearchParams({
+      log: username,
+      pwd: password,
+      redirect_to: '',
+    });
     const response = await this.fetchCookie(url, {
       method: 'post',
       body: params,
-      redirect: 'manual',
     });
-    const redirectUrl = response.headers.get('location');
-    const success = !redirectUrl?.includes('?err'); // csb redirects to login/?err=login on failure
+    const cookies = response.headers.get('set-cookie');
+    if (!cookies) throw new Error('No cookies');
 
+    const success = cookies.includes('wordpress_logged_in');
     this.isLoggedIn = success;
     return success;
   }
